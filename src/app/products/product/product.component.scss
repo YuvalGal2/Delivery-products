@@ -1,0 +1,29 @@
+.product-container {
+    min-height:70px;
+    display: grid;
+    grid-template-columns: 2fr 6fr;
+    grid-auto-rows: minmax(50px,auto);
+    padding-right: 5px;
+
+}
+.product-image {
+    max-height: 70px;
+    background-color:white;
+}
+.product-image > img {
+    max-height:70px;
+}
+.product-description {
+    background-color:lightgray;
+}
+.product-container p {
+    padding-left:10px;
+    margin:2px 0px;
+}
+
+.product-controls{
+    grid-column: 2/2;
+    text-align: right;
+    padding-top: 10px;
+    padding-right:10px;
+}

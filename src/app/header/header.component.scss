@@ -1,0 +1,22 @@
+.header{
+    display: inline-grid;
+    grid-template-columns: 6fr 6fr;
+    background-color:#3498db;
+    min-height:70px;
+    width:100%;
+}
+.logo{
+    display: flex;
+    font-size: 4vw;
+    color:white;
+    font-weight: 200;
+    padding-left:10px;
+    align-items: center;
+}
+
+@media(min-width:768px){
+    .logo{
+        font-size:1.5vw;
+    }
+ 
+}

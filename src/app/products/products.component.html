@@ -1,0 +1,8 @@
+<div class="products-warpper">
+ <!-- <span> The text is :{{productsList|async}} </span> -->
+  <div class="product-warpper" *ngFor="let product of productsList">
+    <app-product  [product]="product"></app-product>
+    <app-product-details></app-product-details>
+  </div>
+  
+</div>

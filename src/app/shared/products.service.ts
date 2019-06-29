@@ -2,6 +2,7 @@ import { Product } from './../products/product/product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, endWith } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
 	providedIn: 'root'
 })
@@ -9,19 +10,26 @@ export class ProductsService {
 	private readonly apiUrl: string = "https://msbit-exam-products-store.firebaseio.com/deliveryProducts/products.json";
 	constructor(private httpClient: HttpClient) { }
 	private productsList: Product[] = [];
+	editedObs = new BehaviorSubject({ id: 0, editMode: false });
+	editedProduct = this.editedObs.asObservable();
 
+	getProductById(id: number) {
+		return this.productsList.find((product: Product) => product.id === id);
+	}
 
+	editModeChanged(id: number, newEditMode: boolean) {
+		this.editedObs.next({ id: id, editMode: newEditMode })
+	}
 
-
-
-
-
-
-
-
-
-
-
+	removeProductById(id: number) {
+		// disable editing option for deleted product
+		this.editedObs.subscribe((observer) => {
+			if (observer.id === id) {
+				this.editedObs.next({ id: 0, editMode: false });
+			}
+		})
+		return this.productsList = this.productsList.filter((product: Product) => product.id !== id);
+	}
 
 	getProducts() {
 		const obs = this.httpClient.get(this.apiUrl)
@@ -51,10 +59,5 @@ export class ProductsService {
 				})
 			}), endWith(this.productsList))
 		return obs;
-	}
-
-
-	softProductsByType(type: number) {
-
 	}
 }

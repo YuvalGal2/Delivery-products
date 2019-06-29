@@ -11,8 +11,7 @@ export class ProductComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.product);
-  
+
   }
 
 }

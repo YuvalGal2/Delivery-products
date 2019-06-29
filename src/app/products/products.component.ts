@@ -13,10 +13,12 @@ export class ProductsComponent implements OnInit {
   constructor(private productService:ProductsService) { }
 
   ngOnInit() {
-   this.productService.getProducts().subscribe((response:Product[]) => {
-    this.productsList = response;
-   })
-    
+   this.productService.getProducts().subscribe(((response:Product[]) => {
+      this.productsList = response;
+    //  console.log(response);
+   }))
+
+  
   }
   trackByProductId(index,product):number{
     return product.id;

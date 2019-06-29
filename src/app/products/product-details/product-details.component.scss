@@ -4,7 +4,7 @@
     grid-auto-rows: minmax(0,auto);
     grid-row-gap: 30px;  
     background-color:whitesmoke;
-    padding:20px 0px;
+    padding:40px 0px;
 }
 .editor {
     display: grid;
@@ -12,13 +12,18 @@
     justify-content: center;
     align-items: center;
  
-    grid-row-gap: 25px;  
+    grid-row-gap: 28px;  
 }
-.ui-float-label {
+.field-container {
     margin:auto;
 }
 
 .input-field {
     border:1px dashed lightslategray;
-    padding:4px;
+    padding:10px;
+    margin:auto;
+}
+.ui-inputgroup .ui-inputgroup-addon{
+    background: white;
+    
 }

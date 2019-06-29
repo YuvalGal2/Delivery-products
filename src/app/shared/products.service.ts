@@ -1,71 +1,65 @@
-import { element } from 'protractor';
 import { Product } from './../products/product/product.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { filter, map} from 'rxjs/operators';
-import {Observable, of, Subject} from 'rxjs';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
+import { filter, map, mergeMap } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ProductsService {
-  private readonly apiUrl:string = "https://msbit-exam-products-store.firebaseio.com/deliveryProducts/products.json";
-  constructor(private httpClient: HttpClient) { }
-  private productTypes = [];
-  private productsList = [
-    { "creationDate":1530110788904,
-      "deliveryComp":"dhl",
-      "description":"officia delectus consequatur vero aut veniam explicabo molestias",
-      "id":7,
-      "name":"product 7",
-      "price":14,
-      "thumbnailUrl":"http://placehold.it/150/b0f7cc",
-      "type":3,
-      "url":"http://placehold.it/600/b0f7cc"
-    },
-    { "creationDate":15301107866904,
-      "deliveryComp":"dhl",
-      "description":"officia delectus consequatur vero aut veniam explicabo molestias",
-      "id":8,
-      "name":"product 8",
-      "price":20,
-      "thumbnailUrl":"http://placehold.it/150/b0f7cc",
-      "type":3,
-      "url":"http://placehold.it/600/b0f7cc"
-  },
-  ];
+	private readonly apiUrl: string = "https://msbit-exam-products-store.firebaseio.com/deliveryProducts/products.json";
+	constructor(private httpClient: HttpClient) { }
+	private productsList: Product[] = [];
 
-  getProducts() {
-  
-    return of(this.productsList);
-    // return this.httpClient.get<Product[]>(this.apiUrl)
-    //  .pipe(map( responseObs => responseObs.map((product:Product) => {
-       
-    //   if(product.name){
-    //     this.productsList.push(product);
-    //   }
-    //   else{
-    //     const ObjKeys = Object.keys(product);
-    //   //  console.log(ObjKeys);
-    //     ObjKeys.forEach((key,index) => {
-    //       if(key !== "type"){
-    //         let elements = product[key];
-    //         console.log(this.productsList);
-    //         this.productsList.concat(this.productsList,elements);
-    //       }
-    //     })
-      
-    //   }
-      
-    //   return product;
-    // })));
-    // need to soft the respsonse, take all products data outside of the category object
 
-    /// the api returns the
-    // .pipe(map( responseObs => responseObs.map((product:Product) => {
-    //   return product;
-    // })));
-  }
-  softProductsByType(type:number){
-  
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+	getProducts() {
+		const obs = this.httpClient.get(this.apiUrl)
+			.pipe(map((obs: Product[]) => {
+				return obs.map(product => {
+					const listItems = {};
+					delete product.type;
+					if (!product.creationDate) {
+						let type = product.type;
+						Object.entries(product).forEach((entrie) => { // key value pair
+							if (typeof (entrie) === 'object') { // if the value of the key is an object or an array
+								if (entrie[1].length > 0) { // if its contain length - meaning array
+									entrie[1].forEach(array => {
+										this.productsList.push(array);
+										console.log(this.productsList);
+									});
+								}
+								else {
+									console.log(this.productsList);
+									this.productsList.push(entrie[1]);
+								}
+							}
+						})
+					}
+					else {
+						console.log(this.productsList);
+						this.productsList.push(product);
+					}
+					console.log(this.productsList);
+					return listItems;
+				})
+			}))
+		return obs;
+	}
+
+
+	softProductsByType(type: number) {
+
+	}
 }

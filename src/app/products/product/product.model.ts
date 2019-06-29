@@ -7,4 +7,5 @@ export interface Product {
     creationDate: number,
     thumbnailUrl: string,
     url: string
+
 }

@@ -24,6 +24,15 @@
     margin:auto;
 }
 .ui-inputgroup .ui-inputgroup-addon{
-    background: white;
-    
+    background: white;   
+}
+
+.invalid-field{
+    border:1px solid #ff7675;
+}
+.invalid-message{
+    color:red;
+    font-size:10px;
+    font-family: Calibri;
+    margin-bottom:2px;
 }

@@ -1,11 +1,25 @@
+<div class="products-controls">
+  <div class="add">
+      <button pButton type="button" label="Add Product" class="ui-button-success"></button>
+  </div>
+  <form #searchForm="ngForm" class="controls-form" (ngSubmit)="filterByDescription(searchForm.value.keywords)">
+  <div class="search">
+      <input id="search-input" type="text" size="30"  placeholder="Search by description" name="keywords" #keywords ngModel pInputText  />
+      <button id="search-btn" type="submit" pButton label="Search"></button>
+  </div>
+</form>
+</div>
 <div class="products-warpper">
     <!-- <span> The text is :{{productsList|async}} </span> -->
     <div class="product">
-       <div class="product-warpper" *ngFor="let product of productsList">
+       <div class="product-warpper"  *ngFor="let product of productsList">
            <app-product (deleteItem)="handleDelete($event)"  [product]="product"></app-product>
+         </div>
+         <div class="error-warpper" *ngIf="productsList.length == 0">
+          <h2>No Data To Display,Please check back later.</h2>
          </div>
     </div>
     <div class="product-details">
-      <app-product-details *ngIf="displayEditMode" ></app-product-details>
+      <app-product-details *ngIf="displayEditMode" (editedProduct)="handleEdit($event)" ></app-product-details>
     </div>
    </div>

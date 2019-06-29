@@ -8,7 +8,7 @@ import { ProductsService } from '../../shared/products.service';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  @Input() product: Product;
+  @Input()  product: Product;
   editMode: boolean = false;
   @Output() deleteItem = new EventEmitter<number>();
   @Output() editItem = new EventEmitter<Product>();
@@ -16,7 +16,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() { }
   onDelete() {
-    this.deleteItem.emit(this.product.id);
+   this.deleteItem.emit(this.product.id);
   }
   changeEditMode() {
     this.editMode = !this.editMode;

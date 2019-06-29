@@ -8,18 +8,32 @@ import { Product } from './product/product.model';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  productsList:Product[]; 
+  productsList:Product[] = [];
   displayEditMode:boolean = false;
+
   constructor(private productService:ProductsService) { }
   ngOnInit() {
     this.productService.editedProduct.subscribe((editingStatus) => {
       this.displayEditMode = editingStatus.editMode;
     })
-   this.productService.getProducts().subscribe(((response:Product[]) => {
-      this.productsList = response;
-   }))
+
+    this.productService.getProducts().subscribe(((response:Product[]) => {
+        this.productsList = response;
+    }))
+
+  }
+  filterByDescription(keywords:string){
+    if(keywords.length > 0){
+      this.productsList = this.productService.filterByDescription(keywords);
+    }
+    else{
+      this.productsList = this.productService.getProductsList();
+    }
   }
   handleDelete(id:number): void {
     this.productsList = this.productService.removeProductById(id);
+  }
+  handleEdit(product:Product) {
+    this.productsList = this.productService.updateProduct(product);
   }
 }

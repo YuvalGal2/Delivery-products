@@ -1,7 +1,7 @@
 import { Product } from './../products/product/product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, endWith } from 'rxjs/operators';
+import { map, endWith,catchError } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 @Injectable({
 	providedIn: 'root'
@@ -10,9 +10,22 @@ export class ProductsService {
 	private readonly apiUrl: string = "https://msbit-exam-products-store.firebaseio.com/deliveryProducts/products.json";
 	constructor(private httpClient: HttpClient) { }
 	private productsList: Product[] = [];
+
 	editedObs = new BehaviorSubject({ id: 0, editMode: false });
 	editedProduct = this.editedObs.asObservable();
 
+
+	filterByDescription(keywords:string):Product[]{
+		return this.productsList.filter((product:Product) => product.description.includes(keywords));
+	}
+	getProductsList(){
+		return this.productsList;
+	}
+	updateProduct(product) {
+		const productToUpdate:Product = this.productsList.find((singleProduct:Product) => singleProduct.id === product.id);
+		this.productsList[this.productsList.indexOf(productToUpdate)] = product;
+		return this.productsList;
+	}
 	getProductById(id: number) {
 		return this.productsList.find((product: Product) => product.id === id);
 	}
@@ -33,7 +46,12 @@ export class ProductsService {
 
 	getProducts() {
 		const obs = this.httpClient.get(this.apiUrl)
-			.pipe(map((obs: Product[]) => {
+			.pipe(
+				catchError((error) => {
+					return []
+				}),
+				
+				map((obs: Product[]) => {
 				return obs.map(product => {
 					const listItems = {};
 					delete product.type;

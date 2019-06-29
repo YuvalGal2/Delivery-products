@@ -5,8 +5,9 @@
     <div class="product-description">
         <p><strong>{{product.name}}</strong></p>
         <p>{{product.description}}</p>
+        <p class="align-right padding-right-small">Price: {{product.price| currency:'USD'}}</p>
     </div>
     <div class="product-controls">
-            <button pButton type="button" label="Danger" class="ui-button-raised ui-button-danger" (click)="onDelete()"></button>
+            <button pButton type="button" label="Delete" class="ui-button-raised ui-button-danger" (click)="onDelete()"></button>
         </div>
 </div>

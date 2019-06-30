@@ -1,3 +1,5 @@
+
+@import './../../shared/variables';
 .product-details-container {
     display: grid;
     grid-auto-columns: 1fr;
@@ -28,11 +30,11 @@
 }
 
 .invalid-field{
-    border:1px solid #ff7675;
+    border:$invalid-field-border;
 }
 .invalid-message{
-    color:red;
-    font-size:10px;
+    color:$invalid-message-color;
+    font-size:$invalid-message-font-size;
     font-family: Calibri;
     margin-bottom:2px;
 }

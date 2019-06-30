@@ -1,0 +1,58 @@
+<button pButton type="button" (click)="showDialog()" label="Add Product" class="ui-button-success"></button>
+<form name="addingForm" #addingForm="ngForm" (ngSubmit)="addProduct(addingForm.value)">
+	<p-dialog header="Add Product" [(visible)]="displayDialog" class="displayDialog" [modal]="true" [responsive]="true" [minY]="70"
+	 [maximizable]="false" [baseZIndex]="10000">
+		<div class="form-container">
+
+			<div class="editor">
+				<div class="field-container">
+					<span class="ui-float-label">
+						<input class="input-field" name="name" [ngClass]="{ 'invalid-field':  name.invalid  }" placeholder="Product name" #name="ngModel"
+						 id="float-input" ngModel required type="text" size="30" pInputText>
+					</span>
+				</div>
+
+				<div class="field-container">
+					<span class="ui-float-label">
+						<textarea pInputTextarea class="input-field" name="description" #description="ngModel" autoResize="autoResize" id="float-input"
+						 placeholder="Product Description" ngModel></textarea>
+					</span>
+				</div>
+
+
+				<div class="field-container">
+					<span class="ui-float-label">
+						<input class="input-field" name="thumbnailUrl" [ngClass]="{ 'invalid-field':  thumbnailUrl.invalid  }"  required placeholder="Thumbnail URL" #thumbnailUrl="ngModel"
+						 id="float-input" ngModel required type="text" size="30" pInputText>
+					</span>
+				</div>
+				<div class="field-container">
+					<span class="ui-float-label">
+						<input class="input-field" name="url" [ngClass]="{ 'invalid-field':  url.invalid  }" placeholder="Image URL" required #url="ngModel"
+						 id="float-input" ngModel required type="text" size="30" pInputText>
+					</span>
+				</div>
+
+				<div class="field-container">
+					<div class="ui-inputgroup">
+						<span class="ui-inputgroup-addon">$</span>
+						<input type="number" name="price" [ngClass]="{ 'invalid-field':  price.invalid  }" required #price="ngModel" ngModel pInputText
+						 placeholder="Price">
+					</div>
+				</div>
+				<div class="field-container">
+					<select class="select-input" name="type" [ngClass]="{ 'invalid-field':  type.invalid  }"  #type="ngModel" required ngModel>
+						<option  *ngFor="let option of [1,2,3]" value="{{option}}">Product Type: {{option}}</option>
+
+					</select>
+				</div>
+			</div>
+
+		</div>
+
+		<p-footer>
+			<button type="submit" pButton icon="pi pi-check"  [disabled]="!addingForm.form.valid || !type.value?.length  " label="Save"></button>
+			<button type="button" pButton icon="pi pi-close" (click)="displayDialog=false" label="Cacnel" class="ui-button-secondary"></button>
+		</p-footer>
+	</p-dialog>
+</form>

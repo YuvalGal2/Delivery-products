@@ -36,4 +36,7 @@ export class ProductsComponent implements OnInit {
   handleEdit(product:Product) {
     this.productsList = this.productService.updateProduct(product);
   }
+  handleAddProduct(formData:any) {
+   this.productsList = this.productService.addNewProduct(formData);
+  }
 }

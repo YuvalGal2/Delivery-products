@@ -1,0 +1,27 @@
+.form-container{
+    padding:40px 0px;
+    
+}
+.displayDialog{
+    width: '350px';
+    min-width: '200px';
+}
+
+.input-field {
+    border:1px dashed lightslategray;
+    padding:10px;
+    margin:auto;
+}
+.select-input{
+    padding:10px;
+}
+.editor {
+    display: grid;
+    grid-auto-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+    grid-row-gap: 18px;  
+}
+.field-container {
+    margin:auto;
+}

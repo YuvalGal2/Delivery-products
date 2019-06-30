@@ -15,18 +15,26 @@ export class ProductsService {
 	editedProduct = this.editedObs.asObservable();
 
 
-	filterByDescription(keywords:string):Product[]{
+	filterByDescription(keywords:string):Product[] {
 		return this.productsList.filter((product:Product) => product.description.includes(keywords));
 	}
-	getProductsList(){
+	addNewProduct(formData:Product): Product[] {
+		const maxId = Math.max(...this.getProductsList().map(product => product.id), 0);
+		const timestamp = new Date().valueOf();
+		formData.creationDate = timestamp;
+		formData.id = maxId+1;
+		this.productsList.push(formData);
+		return this.getProductsList();
+	}
+	getProductsList(): Product[] {
 		return this.productsList;
 	}
-	updateProduct(product) {
+	updateProduct(product): Product[] {
 		const productToUpdate:Product = this.productsList.find((singleProduct:Product) => singleProduct.id === product.id);
 		this.productsList[this.productsList.indexOf(productToUpdate)] = product;
-		return this.productsList;
+		return this.getProductsList();
 	}
-	getProductById(id: number) {
+	getProductById(id: number): Product {
 		return this.productsList.find((product: Product) => product.id === id);
 	}
 

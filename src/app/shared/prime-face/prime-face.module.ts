@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {ButtonModule} from 'primeng/button';
-import {DialogModule} from 'primeng/dialog';
 import {InputTextareaModule} from 'primeng/inputtextarea';
-import {CardModule} from 'primeng/card';
 import {InputTextModule} from 'primeng/inputtext';
+import { CommonModule } from '@angular/common';
 import {ListboxModule} from 'primeng/listbox';
+import {DialogModule} from 'primeng/dialog';
+import {ButtonModule} from 'primeng/button';
+import { NgModule } from '@angular/core';
+import {CardModule} from 'primeng/card';
+
 @NgModule({
   declarations: [],
   imports: [

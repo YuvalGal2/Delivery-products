@@ -1,36 +1,39 @@
 <div class="product-details-container">
-	
+
 	<form name="editingForm" #editingForm="ngForm" (ngSubmit)="editingForm.form.valid && onSave(editingForm.value)">
-	<div class="editor">
-		<div class="field-container">
-			<span class="ui-float-label">
-				
-				<input class="input-field" name="name"  [ngClass]="{ 'invalid-field':  name.invalid  }"    #name="ngModel" id="float-input" [ngModel]="product.name" required type="text" size="30" pInputText>
-				<label for="float-input">Product Name</label>
-				<div *ngIf=" name.invalid && name.errors.required" class="invalid-message">Name is required</div>
-			</span>
-		
-		</div>
+		<div class="editor">
 
-		<div class="field-container">
-			<span class="ui-float-label">
-				<input class="input-field" name="description" #description="ngModel" id="float-input" type="text" [ngModel]="product.description" size="30" pInputText>
-				<label for="float-input">Product Description</label>
-			</span>
-		</div>
-
-		<div class="field-container">
-			<div class="ui-inputgroup">
-				<span class="ui-inputgroup-addon">$</span>
-				<input type="number" name="price" [ngClass]="{ 'invalid-field':  price.invalid  }" required  #price="ngModel" [ngModel]="product.price" pInputText placeholder="Price">
+			<div class="field-container">
+				<span class="ui-float-label">
+					<input class="input-field" name="name" [ngClass]="{ 'invalid-field':  name.invalid  }" #name="ngModel" id="float-input" [ngModel]="product.name"
+					 required type="text" size="30" pInputText>
+					<label for="float-input">Product Name</label>
+					<div *ngIf=" name.invalid && name.errors.required" class="invalid-message">Name is required</div>
+				</span>
 			</div>
-			<div *ngIf=" price.invalid && price.errors.required" class="invalid-message">Price is required</div>
-		</div>
 
-		<div class="field-container">
+			<div class="field-container">
+				<span class="ui-float-label">
+					<input class="input-field" name="description" #description="ngModel" id="float-input" type="text" [ngModel]="product.description"
+					 size="30" pInputText>
+					<label for="float-input">Product Description</label>
+				</span>
+			</div>
+
+			<div class="field-container">
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon">$</span>
+					<input type="number" name="price" [ngClass]="{ 'invalid-field':  price.invalid  }" required #price="ngModel" [ngModel]="product.price"
+					 pInputText placeholder="Price">
+				</div>
+				<div *ngIf=" price.invalid && price.errors.required" class="invalid-message">Price is required</div>
+			</div>
+
+
+			<div class="field-container">
 				<button pButton type="submit" label="Save me :)" [disabled]="price.invalid || name.invalid || price.value <= 0" class="ui-button-raised"></button>
 			</div>
-
-	</div>
-</form>
+			
+		</div>
+	</form>
 </div>

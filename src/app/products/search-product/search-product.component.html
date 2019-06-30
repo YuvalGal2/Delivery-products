@@ -1,0 +1,6 @@
+<form #searchForm="ngForm" class="controls-form" (ngSubmit)="onfilterByDescription(searchForm.value.keywords)">
+	<div class="search">
+		<input id="search-input" type="text" size="30" placeholder="Search by description" name="keywords" #keywords ngModel pInputText/>
+		<button id="search-btn" type="submit" pButton label="Search"></button>
+	</div>
+</form>

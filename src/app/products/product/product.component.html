@@ -1,13 +1,13 @@
 <div class="product-container" (click)="changeEditMode()">
-    <div class="product-image">
-        <img [src]="product.thumbnailUrl" alt="">
-    </div>
-    <div class="product-description">
-        <p><strong>{{product.name}}</strong></p>
-        <p>{{product.description}}</p>
-        <p class="align-right padding-right-small">Price: {{product.price| currency:'USD'}}</p>
-    </div>
-    <div class="product-controls">
-            <button pButton type="button" label="Delete" class="ui-button-raised ui-button-danger" (click)="onDelete()"></button>
-        </div>
+	<div class="product-image">
+		<img [src]="product.thumbnailUrl" alt="">
+	</div>
+	<div class="product-description">
+		<p><strong>{{product.name}}</strong></p>
+		<p>{{product.description}}</p>
+		<p class="align-right padding-right-small">Price: {{product.price| currency:'USD'}}</p>
+	</div>
+	<div class="product-controls">
+		<button pButton type="button" label="Delete" class="ui-button-raised ui-button-danger" (click)="onDelete()"></button>
+	</div>
 </div>

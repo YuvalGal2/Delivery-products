@@ -1,8 +1,8 @@
 import { Product } from './../products/product/product.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, endWith,catchError } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
 	providedIn: 'root'
 })
@@ -18,6 +18,7 @@ export class ProductsService {
 	filterByDescription(keywords:string):Product[] {
 		return this.productsList.filter((product:Product) => product.description.includes(keywords));
 	}
+
 	addNewProduct(formData:Product): Product[] {
 		const maxId = Math.max(...this.getProductsList().map(product => product.id), 0);
 		const timestamp = new Date().valueOf();
@@ -26,23 +27,29 @@ export class ProductsService {
 		this.productsList.push(formData);
 		return this.getProductsList();
 	}
+
 	getProductsList(): Product[] {
 		return this.productsList;
 	}
+
 	updateProduct(product): Product[] {
 		const productToUpdate:Product = this.productsList.find((singleProduct:Product) => singleProduct.id === product.id);
 		this.productsList[this.productsList.indexOf(productToUpdate)] = product;
 		return this.getProductsList();
 	}
+
+
 	getProductById(id: number): Product {
 		return this.productsList.find((product: Product) => product.id === id);
 	}
 
-	editModeChanged(id: number, newEditMode: boolean) {
+
+	editModeChanged(id: number, newEditMode: boolean): void {
 		this.editedObs.next({ id: id, editMode: newEditMode })
 	}
 
-	removeProductById(id: number) {
+
+	removeProductById(id: number): Product[] {
 		// disable editing option for deleted product
 		this.editedObs.subscribe((observer) => {
 			if (observer.id === id) {
@@ -52,15 +59,17 @@ export class ProductsService {
 		return this.productsList = this.productsList.filter((product: Product) => product.id !== id);
 	}
 
-	getProducts() {
-		const obs = this.httpClient.get(this.apiUrl)
+
+	getProducts():Observable<any>{
+		const requestObservable:Observable<any> = this.httpClient.get(this.apiUrl)
 			.pipe(
-				catchError((error) => {
+				catchError((error:HttpErrorResponse) => {
+					console.error(`Server returned error: ${error.status}!`);
 					return []
 				}),
-				
-				map((obs: Product[]) => {
-				return obs.map(product => {
+		
+				map((requestObservable: Product[]) => {
+				return requestObservable.map(product => {
 					const listItems = {};
 					delete product.type;
 					if (!product.creationDate) {
@@ -84,6 +93,6 @@ export class ProductsService {
 					return listItems;
 				})
 			}), endWith(this.productsList))
-		return obs;
+		return requestObservable;
 	}
 }

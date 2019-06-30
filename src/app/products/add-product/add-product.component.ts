@@ -1,5 +1,4 @@
-import { Product } from './../product/product.model';
-import { Component, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector: 'app-add-product',
@@ -8,11 +7,10 @@ import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 })
 export class AddProductComponent implements OnInit {
 	@Output() addedProduct = new EventEmitter();
+	private displayDialog: boolean = false;
 	constructor() { }
-	displayDialog: boolean = false;
-	ngOnInit() {
-		
-	}
+
+	ngOnInit() { }
 
 	showDialog(): void {
 		this.displayDialog = true;
